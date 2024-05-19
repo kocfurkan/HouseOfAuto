@@ -55,6 +55,7 @@ namespace AuctionService.Controllers
             //Add Authentication
             auction.Seller = User.Identity.Name;
 
+            //Becouse we're using outbox. code will act like transaction and prevent auctions being added to database that are not published.
             _context.Auctions.Add(auction);
 
             var newAuction = _mapper.Map<AuctionDto>(auction);
