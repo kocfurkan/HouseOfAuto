@@ -27,7 +27,7 @@ namespace SearchService.Controllers
             //Sort
             query = searchParams.OrderBy switch
             {
-                "make" => query.Sort(x => x.Ascending(y => y.Make)),
+                "make" => query.Sort(x => x.Ascending(y => y.Make)).Sort(x => x.Ascending(a => a.Model)),
                 "new" => query.Sort(x => x.Descending(y => y.CreatedAt)),
                 _ => query.Sort(x => x.Ascending(a => a.AuctionEnd))
             };
