@@ -7,7 +7,6 @@ import { getTokenWorkaround } from "../actions/authActions";
 export default async function Session() {
   const session = await getSession();
   const token = getTokenWorkaround();
-  console.log(token);
 
   return (
     <div>

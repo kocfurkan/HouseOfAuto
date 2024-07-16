@@ -23,6 +23,8 @@ export default function AuctionList() {
       searchTerm: state.searchTerm,
       orderBy: state.orderBy,
       filterBy: state.filterBy,
+      Seller: state.seller,
+      Winner: state.winner,
     }),
     shallow
   );
