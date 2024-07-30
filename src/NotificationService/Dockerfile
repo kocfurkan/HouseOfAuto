@@ -2,10 +2,10 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 as build
 WORKDIR /app
 EXPOSE 80
 
-# copy all .csproj files and restore as ditinct layers. User of the same Copy command
+# copy all .csproj files and restore as distinct layers. User of the same Copy command
 # for every dockerfile in the project to make advantage of docker caching
 
-COPY HouseOfAuto.sln HouseOfAuto.sln 
+COPY  HouseOfAuto.sln HouseOfAuto.sln 
 COPY  src/AuctionService/AuctionService.csproj src/AuctionService/AuctionService.csproj
 COPY  src/GatewayService/GatewayService.csproj src/GatewayService/GatewayService.csproj
 COPY  src/BiddingService/BiddingService.csproj src/BiddingService/BiddingService.csproj
@@ -19,8 +19,9 @@ COPY  src/IdentityService/IdentityService.csproj src/IdentityService/IdentitySer
 RUN dotnet restore HouseOfAuto.sln
 
 # Copy the app folders over
-COPY src/IdentityService src/IdentityService 
-WORKDIR /app/src/IdentityService
+COPY src/NotificationService src/NotificationService 
+COPY src/Contracts src/Contracts
+WORKDIR /app/src/NotificationService
 RUN dotnet publish -c Release -o /app/src/out
 
 # Build runtime image
@@ -28,5 +29,5 @@ RUN dotnet publish -c Release -o /app/src/out
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/src/out .
-ENTRYPOINT [ "dotnet","IdentityService.dll" ]
+ENTRYPOINT [ "dotnet","NotificationService.dll" ]
 
