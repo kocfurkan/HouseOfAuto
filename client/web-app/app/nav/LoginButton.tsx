@@ -7,7 +7,11 @@ import React from "react";
 export default function LoginButton() {
   //Same with doendeserver config id
   return (
-    <Button onClick={() => signIn("id-server", { callbackUrl: "/" })}>
+    <Button
+      onClick={() =>
+        signIn("id-server", { callbackUrl: "/" }, { prompt: "login" })
+      }
+    >
       Login
     </Button>
   );
